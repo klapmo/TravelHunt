@@ -19,6 +19,11 @@ Run `npm i` on console to create `node_modules` directory.
 ## How to start
 **Note** that this seed project requires  **node >=v6.9.0 and npm >=3**.
 
+Create `config.ts` in `src/app` with the following:
+export const CONFIG = {
+  GOOGLE_API_KEY: 'YOUR API KEY HERE'
+};
+
 Replace `'YOUR API KEY HERE'` at `src/app/config.ts` by your personal Google Maps API key.
 
 After replacing the API key use:
