@@ -16,7 +16,8 @@
                           <li class="loc-info">
                               <span><div>{{ address.street }}</div>
                               <p class="address-complement">{{ addresses[index].additionalInfo}}</p></span>
-                              <p (click)="removeMarker(index)">Remove from list</p>
+                              <!-- <p (click)="removeMarker(index)">Remove from list</p> -->
+                              <img (click)="removeMarker(index)" src="../assets/img/redx.png" alt="Remove" style="width: 25px; height:25px;">
                           </li>
                       </div>
                   </div>
