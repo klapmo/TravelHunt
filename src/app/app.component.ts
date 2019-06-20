@@ -15,4 +15,8 @@ export class AppComponent {
   SignOut(){
     this.auth.SignOut();
   }
+
+  isAuth() {
+    this.auth.isAuthenticated();
+  }
 }

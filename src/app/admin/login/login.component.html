@@ -6,7 +6,7 @@
           <input type="text" class="formControl" placeholder="Username" #userName required>
         </div>
         <div class="formGroup">
-          <input type="password" class="formControl" placeholder="Password" #userPassword required>
+          <input type="password" class="formControl" placeholder="Password" (keypress)="keypress($event,userName.value,userPassword.value)" #userPassword required>
         </div>
         <!-- Calling SignIn Api from AuthService -->
         <div class="formGroup">

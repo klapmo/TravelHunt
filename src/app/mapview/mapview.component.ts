@@ -84,26 +84,41 @@ private itemsCollection: AngularFirestoreCollection<Location>;
           });
 
           if (this.auth.isAuthenticated()) {
-            console.log("TEST");
-            this.itemsCollection = this.afs.collection<Location>('location', ref => ref.where("uid", "==", this.auth.GetUserId())); //! Pulling in ALL locations in DB (after <Location> is not working)
+            this.itemsCollection = this.afs.collection<Location>('location', ref => ref.where('uid', '==', this.auth.GetUserId())); //! Pulling in ALL locations in DB (after <Location> is not working)
             this.Location = this.itemsCollection.valueChanges();
-            this.itemsCollection.ref.get().then((querySnapshot) => {
-                querySnapshot.docs.forEach((doc) => {
-                    var item = doc.data()
-                    this.markers.push({
-                        lat: item.lat,
-                        lng: item.lng,
-                        label: this.alphabeticLabels[this.labelIndex++ % this.alphabeticLabels.length]
-                    })
-                    this.addresses.push({
-                        street: item.street,
-                        additionalInfo: item.additionalInfo,
-                        lat: item.lat,
-                        lng: item.lng
-                    })
+            this.Location.subscribe(userCollection => {
+                this.markers = []
+                this.addresses = []
+                userCollection.forEach(item => {
+                this.markers.push({
+                    lat: item.lat,
+                    lng: item.lng,
+                    label: this.alphabeticLabels[this.labelIndex++ % this.alphabeticLabels.length]
                 })
+                this.addresses.push({
+                    street: item.street,
+                    additionalInfo: item.additionalInfo,
+                    lat: item.lat,
+                    lng: item.lng
+                })
+            })})
+            // this.itemsCollection.ref.get().then((querySnapshot) => {
+            //     querySnapshot.docs.forEach((doc) => {
+            //         var item = doc.data()
+            //         this.markers.push({
+            //             lat: item.lat,
+            //             lng: item.lng,
+            //             label: this.alphabeticLabels[this.labelIndex++ % this.alphabeticLabels.length]
+            //         })
+            //         this.addresses.push({
+            //             street: item.street,
+            //             additionalInfo: item.additionalInfo,
+            //             lat: item.lat,
+            //             lng: item.lng
+            //         })
+            //     })
     
-            })
+            // })
         }
 
   }
@@ -270,33 +285,31 @@ private itemsCollection: AngularFirestoreCollection<Location>;
   //Remove markers and location from Firebase
   removeMarker(index){
       var ctx = this;
-      this.itemsCollection.ref.get().then((snapshot) => {
-        var docFound = false;
-        snapshot.docs.forEach((doc,docIndex) => {
-          var dataObj = doc.data();
-          console.log(dataObj.lat);
-          console.log("before if");
-          console.log(ctx.markers[0].lat)
-          if (!docFound) {
-              console.log(ctx.markers[0].lat)
-            if (dataObj.lat == ctx.markers[index].lat && dataObj.lng == ctx.markers[index].lng && dataObj.uid == ctx.auth.GetUserId()) { 
-                console.log(doc.ref) 
-                doc.ref.delete();
-                docFound = true;
-            }    
-          }
+      if (this.auth.isAuthenticated()) {
+        this.itemsCollection.ref.get().then((snapshot) => {
+            var docFound = false;
+            snapshot.docs.forEach((doc,docIndex) => {
+              var dataObj = doc.data();
+              if (!docFound) {
+                  console.log(ctx.markers[0].lat)
+                if (dataObj.lat == ctx.markers[index].lat && dataObj.lng == ctx.markers[index].lng && dataObj.uid == ctx.auth.GetUserId()) { 
+                    doc.ref.delete();
+                    docFound = true;
+                }    
+              }
+            })
+            this.addresses.splice(index,1);
+            console.log("Removing from markers")
+            this.markers.splice(index,1);
+            console.log("Done")
         })
-        console.log("after if")
+      }
+      else {
         this.addresses.splice(index,1);
-        console.log("removing from markers")
+        console.log("Removing from markers")
         this.markers.splice(index,1);
-        console.log("done done")
-    })
-    // console.log("after if")
-    // this.addresses.splice(index,1);
-    // console.log("removing from markers")
-    // this.markers.splice(index,1); //! This is running before it can go through docFound if statement
-    // console.log("done done")
+        console.log("Done")
+      }
 
   }
 
