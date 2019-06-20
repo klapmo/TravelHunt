@@ -1,0 +1,43 @@
+<div id="route-container">
+  <div class="font-bold">
+      <p id="route-label">Where do you want to go?</p>
+  </div>
+  <div class="add-route-container">
+      <div id="input-and-display-address" class="col col-xl-6 col-lg-12">
+          <div class="form-group">
+              <input class="form-control" #search [formControl]="searchControl" type="text" placeholder="Search for Location" autocorrect="off"
+                  autocapitalize="off" spellcheck="off">
+          </div>
+          <div id="addresses-container" *ngIf="addresses">
+              <ul *ngFor="let address of addresses; let index = index; trackBy: trackByIndex;">
+                  <div class="line">
+                      <div class="letter-marker" (click)="drawRoute(index)">{{ alphabeticLabels[index] }}</div>
+                      <div style="width:100%">
+                          <li class="loc-info">
+                              <span><div>{{ address.street }}</div>
+                              <p class="address-complement">{{ addresses[index].additionalInfo}}</p></span>
+                              <img (click)="removeMarker(index)" src="../assets/img/redx.png" alt="Remove" style="width: 25px; height:25px;">
+                          </li>
+                      </div>
+                  </div>
+              </ul>
+          </div>
+          <div id="distance-price-container" *ngIf="distance">
+              <div id="distance-container">
+                  <div class="font-bold">
+                      <p id="distance-label">Distance</p>
+                  </div>
+                  <div id="distance-value">{{ distance }} mi</div>
+              </div>
+          </div>
+      </div>
+      <div id="map" class="col col-xl-6 col-lg-12">
+          <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false">
+              <div *ngFor="let marker of markers">
+                  <agm-marker [latitude]="marker.lat" [longitude]="marker.lng" [label]="marker.label">
+                  </agm-marker>
+              </div>
+          </agm-map>
+      </div>
+  </div>
+</div>
