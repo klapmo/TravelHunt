@@ -102,23 +102,6 @@ private itemsCollection: AngularFirestoreCollection<Location>;
                     lng: item.lng
                 })
             })})
-            // this.itemsCollection.ref.get().then((querySnapshot) => {
-            //     querySnapshot.docs.forEach((doc) => {
-            //         var item = doc.data()
-            //         this.markers.push({
-            //             lat: item.lat,
-            //             lng: item.lng,
-            //             label: this.alphabeticLabels[this.labelIndex++ % this.alphabeticLabels.length]
-            //         })
-            //         this.addresses.push({
-            //             street: item.street,
-            //             additionalInfo: item.additionalInfo,
-            //             lat: item.lat,
-            //             lng: item.lng
-            //         })
-            //     })
-    
-            // })
         }
 
   }
@@ -152,7 +135,6 @@ private itemsCollection: AngularFirestoreCollection<Location>;
     return new Promise((resolve, reject) => {
 
       navigator.geolocation.getCurrentPosition(resp => {
-
           resolve({lng: resp.coords.longitude, lat: resp.coords.latitude});
         },
         err => {
@@ -223,12 +205,6 @@ private itemsCollection: AngularFirestoreCollection<Location>;
       // }
 
       this.setDirectionsRequest(index);
-
-      // if (length > 2) {
-      //     if (length >= 12) {
-      //         console.log('Google taxes for more than 10 waypoints. Be careful');
-      //         return;
-      //     }
           const waypoints: google.maps.DirectionsWaypoint[] = [];
           // const user_loc: google.maps.DirectionsWaypoint = {location: {lat:this.lat,lng:this.lng}, stopover: null}
           const marker_loc: google.maps.DirectionsWaypoint = {location: this.markers[index], stopover: null}
