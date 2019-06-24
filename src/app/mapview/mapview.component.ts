@@ -307,6 +307,8 @@ private itemsCollection: AngularFirestoreCollection<Location>;
 
   setPlacesAutocomplete(): void {
       this.autoComplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement);
+
+      //! Uncomment below code to set bounds for map country
       // this.autoComplete.setTypes(['address']);
       // this.autoComplete.setComponentRestrictions({country: 'br'});
   }
