@@ -1,7 +1,7 @@
 export const CONFIG = {
-  GOOGLE_API_KEY: 'AIzaSyA1qBZfxHHZG4HxoKMg4JSkbkDk6puRuWQ',
+  GOOGLE_API_KEY: 'YOUR API KEY HERE',
   FIREBASE_CONFIG: {
-      apiKey: "AIzaSyCm1ngpJEFSbMw6YSdDVXH9TaiVtQrILYA",
+      apiKey: "YOUR API KEY HERE",
       authDomain: "angular-maps-project-243323.firebaseapp.com",
       databaseURL: "https://angular-maps-project-243323.firebaseio.com",
       projectId: "angular-maps-project-243323",
