@@ -21,7 +21,9 @@ How to Run
 Built With
 
 Angular 7
+
 Google Maps API
+
 Firebase / Firestore
 
 Features
