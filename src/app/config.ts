@@ -1,5 +1,5 @@
 export const CONFIG = {
-  GOOGLE_API_KEY: 'YOUR API KEY HERE',
+  GOOGLE_API_KEY: "YOUR API KEY HERE",
   FIREBASE_CONFIG: {
       apiKey: "YOUR API KEY HERE",
       authDomain: "angular-maps-project-243323.firebaseapp.com",

@@ -42,14 +42,14 @@ private itemsCollection: AngularFirestoreCollection<Location>;
 
   addresses: Address[];
 
-  // markers labels
+  // Markers labels
   alphabeticLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   labelIndex: number;
 
-  // google maps zoom level
+  // Google Maps zoom level
   zoom = 11;
 
-  // initial center position for the map
+  // Initial center position for the map (random)
   lat = 18.109581;
   lng = -77.297508;
 
@@ -82,7 +82,7 @@ private itemsCollection: AngularFirestoreCollection<Location>;
              this.lat = pos.lat;
              this.lng = pos.lng;
           });
-
+          // Pulling database POIs based on UID authentication
           if (this.auth.isAuthenticated()) {
             this.itemsCollection = this.afs.collection<Location>('location', ref => ref.where('uid', '==', this.auth.GetUserId())); //! Pulling in ALL locations in DB (after <Location> is not working)
             this.Location = this.itemsCollection.valueChanges();
@@ -122,7 +122,7 @@ private itemsCollection: AngularFirestoreCollection<Location>;
 
               this.setPlacesAutocomplete();
 
-              // workaround to restrict Autocomplete to get addresses within the chosen city boundaries
+              // Workaround to restrict Autocomplete to get addresses within the chosen city boundaries (that code setPlacesAutocomplete)
               this.maps.boundsChange.subscribe(bounds => this.autoComplete.setBounds(bounds));
 
               this.setupPlaceChangedListener();
@@ -130,6 +130,7 @@ private itemsCollection: AngularFirestoreCollection<Location>;
           .catch(e => console.log('Error loading MapsApi', e));
   }
 
+  //Pinging the browser for current location
   getPosition(): Promise<any>
   {
     return new Promise((resolve, reject) => {
@@ -198,7 +199,7 @@ private itemsCollection: AngularFirestoreCollection<Location>;
       });
   }
 
-  drawRoute(index: number): void {
+//   drawRoute(index: number): void {
       // const length = this.markers.length;
       // if (!(length >= 2)) {
       //     return;
@@ -208,6 +209,7 @@ private itemsCollection: AngularFirestoreCollection<Location>;
           const waypoints: google.maps.DirectionsWaypoint[] = [];
           // const user_loc: google.maps.DirectionsWaypoint = {location: {lat:this.lat,lng:this.lng}, stopover: null}
           const marker_loc: google.maps.DirectionsWaypoint = {location: this.markers[index], stopover: null}
+          // Waypoint code commented out
           // this.markers.slice(1, this.markers.length - 1)
           //     .forEach(coordinates => {
           //         const way: google.maps.DirectionsWaypoint = {location: coordinates, stopover: null};
@@ -224,6 +226,7 @@ private itemsCollection: AngularFirestoreCollection<Location>;
   }
 
   setDirectionsRequest(index): void {
+      // Waypoint code is commented out below
       // this.directionsRequest.origin = _.first(this.markers);
       this.directionsRequest.origin = {lat:this.lat,lng:this.lng};
       this.directionsRequest.destination = this.markers[index]
@@ -310,7 +313,7 @@ private itemsCollection: AngularFirestoreCollection<Location>;
 
       //! Uncomment below code to set bounds for map country
       // this.autoComplete.setTypes(['address']);
-      // this.autoComplete.setComponentRestrictions({country: 'br'});
+      // this.autoComplete.setComponentRestrictions({country: 'us'});
   }
 
   initializeRouteAndComponents(): void {
