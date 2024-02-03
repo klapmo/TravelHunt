@@ -29,7 +29,7 @@
     "@ng-bootstrap/ng-bootstrap": "4.0.1",
     "angularfire2": "^5.2.1",
     "core-js": "^2.5.4",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "firebase": "^6.2.0",
     "lodash": "4.17.19",
     "rxjs": "~6.3.3",
